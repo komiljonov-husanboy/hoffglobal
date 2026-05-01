@@ -3,554 +3,272 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reinigung Expert 300 - Pro</title>
+    <title>Hoff Global | Germaniyaga Ishonchli Yo'l</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        hoffblue: { 500: '#1A56DB', 600: '#1E40AF', 900: '#1E3A8A' }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            --primary: #3b82f6;
-            --primary-hover: #2563eb;
-            --bg: #0f172a;
-            --card: #1e293b;
-            --text: #f8fafc;
-            --accent: #10b981;
-            --danger: #ef4444;
-            --level-badge: #64748b;
+        html { scroll-behavior: smooth; }
+        .bg-hero {
+            background-image: linear-gradient(rgba(30, 58, 138, 0.8), rgba(30, 58, 138, 0.7)), url('https://images.unsplash.com/photo-1467269204594-9661b134dd2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover; background-position: center;
         }
-        body {
-            margin: 0;
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-        header {
-            text-align: center;
-            padding: 25px 20px;
-            background: rgba(30, 41, 59, 0.8);
-            backdrop-filter: blur(10px);
-            width: 100%;
-            border-bottom: 1px solid #334155;
-            box-sizing: border-box;
-        }
-        header h1 { margin: 0 0 10px 0; font-size: 1.8rem; color: #fff; }
-        header p { margin: 0; color: #94a3b8; font-size: 0.95rem; }
-        
-        .container { width: 92%; max-width: 600px; margin-top: 30px; margin-bottom: 30px; }
-        
-        .card {
-            background: var(--card);
-            padding: 35px 25px;
-            border-radius: 24px;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            border: 1px solid #334155;
-            position: relative;
-        }
-        
-        .level-badge {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: var(--level-badge);
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-        }
-
-        .word-display { 
-            font-size: 2.2rem; 
-            font-weight: 800; 
-            color: #fff; 
-            margin: 20px 0; 
-            min-height: 3.5rem; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center;
-            text-shadow: 0 2px 10px rgba(59, 130, 246, 0.3);
-        }
-        .info { color: #94a3b8; margin-bottom: 20px; display: block; font-size: 1.1rem; letter-spacing: 1px; }
-        
-        .btn {
-            width: 100%;
-            padding: 16px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 16px;
-            cursor: pointer;
-            font-size: 1.05rem;
-            font-weight: 600;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        .btn:active { transform: scale(0.98); }
-        
-        .btn-main { background: var(--primary); color: white; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); }
-        .btn-main:hover { background: var(--primary-hover); }
-        
-        .btn-opt { background: #334155; color: #f1f5f9; border: 1px solid #475569; }
-        .btn-opt:hover { background: #475569; }
-
-        /* Yashil va Qizil animatsiyalar */
-        .btn-correct { background: var(--accent) !important; color: white !important; border-color: var(--accent) !important; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); }
-        .btn-wrong { background: var(--danger) !important; color: white !important; border-color: var(--danger) !important; animation: shake 0.4s; }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-8px); }
-            75% { transform: translateX(8px); }
-        }
-
-        .hidden { display: none !important; }
-        
-        .progress-bar { width: 100%; height: 10px; background: #334155; border-radius: 5px; margin-bottom: 25px; overflow: hidden;}
-        #fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--primary), #60a5fa); border-radius: 5px; transition: width 0.4s ease; }
-        
-        input[type="text"] {
-            width: 100%; padding: 18px; border-radius: 16px; border: 2px solid #475569;
-            background: #0f172a; color: white; font-size: 1.2rem; box-sizing: border-box; margin-bottom: 20px;
-            text-align: center; transition: all 0.3s ease; outline: none;
-        }
-        input[type="text"]:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2); }
-        .input-correct { border-color: var(--accent) !important; background: rgba(16, 185, 129, 0.1) !important; }
-        .input-wrong { border-color: var(--danger) !important; background: rgba(239, 68, 68, 0.1) !important; animation: shake 0.4s; }
+        .admin-glass { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); }
+        [v-cloak] { display: none; }
     </style>
 </head>
-<body>
+<body class="font-sans bg-gray-50 text-gray-800">
 
-<header>
-    <h1>🧹 Reinigung Expert 300</h1>
-    <p>Professional tozalash va mehmonxona xizmati bo'yicha to'liq lug'at (A1-B2)</p>
-</header>
+<div id="app" v-cloak>
+    <div v-if="!adminActive">
+        <nav class="bg-white shadow-md fixed w-full z-50 top-0 transition-all duration-300">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-20 items-center">
+                    <a href="#" class="flex items-center gap-2">
+                        <img style="border-radius: 50%; width: 60px;" src="./image/62dbb42c-eac4-4995-b101-4db1ed07cb79-removebg-preview.png" alt="">
+                        <span class="font-bold text-2xl text-hoffblue-900 tracking-tight">Hoff Global</span>
+                    </a>
+                    <div class="hidden md:flex space-x-8 items-center font-medium text-gray-600">
+                        <a href="#asosiy" class="hover:text-hoffblue-600 transition">Asosiy</a>
+                        <a href="#vakansiyalar" class="hover:text-hoffblue-600 transition">Vakansiyalar</a>
+                        <a href="#vizalar" class="hover:text-hoffblue-600 transition">Vizalar</a>
+                        <a href="#aloqa" class="bg-hoffblue-600 text-white px-5 py-2 rounded-lg hover:bg-hoffblue-900 transition shadow-md">Bog'lanish</a>
+                        <button @click="showLogin = true" class="text-xs text-gray-300 hover:text-gray-500">Admin</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
 
-<div class="container" id="menu">
-    <div class="card">
-        <h2 style="margin-top: 0; color: #fff;">O'quv bo'limini tanlang</h2>
-        <p style="color: #94a3b8; margin-bottom: 25px;">O'z darajangizni sinab ko'ring va natijalarni yaxshilang.</p>
-        <button class="btn btn-main" onclick="start('quiz')">🎯 Test (Quiz)</button>
-        <button class="btn btn-main" onclick="start('flash')">🎴 Flashcard</button>
-        <button class="btn btn-main" onclick="start('write')">✍️ Diktant (Yozish)</button>
+        <section id="asosiy" class="bg-hero h-screen flex items-center">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left">
+                <div class="md:w-2/3">
+                    <span class="inline-block py-1 px-3 rounded-full bg-blue-100 text-hoffblue-600 font-semibold text-sm mb-4">Faqat Germaniya Yo'nalishida</span>
+                    <h1 class="text-5xl md:text-7xl font-bold text-white leading-tight mb-6">Germaniyada O'z Kelajagingizni Quring</h1>
+                    <p class="text-xl text-gray-200 mb-8 max-w-2xl">Hoff Global — viza olish va Myunxen, Berlin kabi shaharlarda ishga joylashish bo'yicha ekspert hamkoringiz.</p>
+                    <div class="flex gap-4">
+                        <a href="#vakansiyalar" class="bg-white text-hoffblue-900 font-bold px-8 py-4 rounded-xl hover:bg-gray-100 transition shadow-xl">Vakansiyalar</a>
+                        <a href="#aloqa" class="border-2 border-white text-white font-bold px-8 py-4 rounded-xl hover:bg-white hover:text-hoffblue-900 transition">Bepul Konsultatsiya</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="vakansiyalar" class="py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center text-hoffblue-900 mb-12">Dolzarb Vakansiyalar</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div v-for="job in vacancies" :key="job.id" class="border rounded-2xl overflow-hidden hover:shadow-2xl transition group">
+                        <div class="h-52 overflow-hidden bg-gray-100">
+                            <img :src="job.image" class="w-full h-full object-cover group-hover:scale-110 transition">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl mb-2">{{ job.title }}</h3>
+                            <p class="text-hoffblue-600 font-bold text-lg mb-4">{{ job.salary }} € / oy</p>
+                            <a :href="job.link" target="_blank" class="block w-full text-center bg-hoffblue-900 text-white py-3 rounded-lg hover:bg-black transition">Ariza topshirish</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="vizalar" class="py-24 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 text-center">
+                <h2 class="text-3xl font-bold text-hoffblue-900 mb-4">Vizalar</h2>
+                <p class="text-gray-600 mb-12">Biz orqali viza olgan hamyurtlarimizning natijalari</p>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div v-for="v in visas" :key="v.id" class="bg-white p-2 rounded-2xl shadow-sm">
+                        <img :src="v.photo" class="w-full h-64 object-cover rounded-xl mb-4">
+                        <h4 class="font-bold">{{ v.name }}</h4>
+                        <p class="text-sm text-gray-500">{{ v.city }}</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="aloqa" class="py-20 px-4">
+            <div class="max-w-4xl mx-auto bg-hoffblue-900 rounded-[3rem] p-10 md:p-16 shadow-2xl text-center">
+                <h2 class="text-3xl font-bold text-white mb-6">Savollaringiz bormi?</h2>
+                <form @submit.prevent="submitContact" class="space-y-4">
+                    <input v-model="form.name" type="text" placeholder="Ismingiz" required class="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-blue-200">
+                    <input v-model="form.phone" type="text" placeholder="Telefon raqamingiz" required class="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-blue-200">
+                    <textarea v-model="form.msg" placeholder="Xabaringiz..." class="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-blue-200 h-32"></textarea>
+                    <button class="w-full bg-white text-hoffblue-900 font-bold py-4 rounded-xl hover:bg-gray-100 transition">Xabarni yuborish</button>
+                </form>
+            </div>
+        </section>
     </div>
-</div>
 
-<div class="container hidden" id="game">
-    <div class="progress-bar"><div id="fill"></div></div>
-    <div class="card" id="display"></div>
-    <button class="btn btn-opt" style="margin-top: 20px;" onclick="location.reload()">🏠 Menyu qismiga qaytish</button>
+    <div v-if="showLogin" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+        <div class="bg-white p-8 rounded-3xl shadow-2xl w-full max-w-md">
+            <h2 class="text-2xl font-bold mb-6 text-center">Admin Panelga kirish</h2>
+            <input v-model="loginPass" type="password" placeholder="Parol" class="w-full p-4 border rounded-xl mb-4">
+            <div class="flex gap-3">
+                <button @click="checkLogin" class="flex-1 bg-hoffblue-600 text-white py-3 rounded-xl font-bold">Kirish</button>
+                <button @click="showLogin = false" class="flex-1 bg-gray-100 py-3 rounded-xl">Yopish</button>
+            </div>
+        </div>
+    </div>
+
+    <div v-if="adminActive" class="min-h-screen bg-slate-100 flex flex-col md:flex-row">
+        <aside class="w-full md:w-64 bg-hoffblue-900 text-white p-6">
+            <h2 class="text-2xl font-bold mb-10">HOFF ADMIN</h2>
+            <nav class="space-y-4">
+                <button @click="tab = 'vacancies'" class="block w-full text-left p-3 rounded-xl hover:bg-white/10" :class="tab == 'vacancies' ? 'bg-white/20' : ''">Vakansiyalar</button>
+                <button @click="tab = 'visas'" class="block w-full text-left p-3 rounded-xl hover:bg-white/10" :class="tab == 'visas' ? 'bg-white/20' : ''">Vizalar</button>
+                <button @click="tab = 'inbox'" class="block w-full text-left p-3 rounded-xl hover:bg-white/10" :class="tab == 'inbox' ? 'bg-white/20' : ''">Xabarlar ({{ inbox.length }})</button>
+                <hr class="opacity-20">
+                <button @click="logout" class="block w-full text-left p-3 text-red-300 hover:text-red-500">Chiqish</button>
+            </nav>
+        </aside>
+
+        <main class="flex-1 p-8">
+            <div v-if="tab == 'vacancies'">
+                <div class="flex justify-between items-center mb-8">
+                    <h2 class="text-2xl font-bold">Vakansiyalarni boshqarish</h2>
+                    <button @click="addVacancy" class="bg-green-600 text-white px-6 py-2 rounded-xl">+ Yangi qo'shish</button>
+                </div>
+                <div class="grid gap-4">
+                    <div v-for="(v, i) in vacancies" class="bg-white p-5 rounded-2xl shadow-sm flex flex-col md:flex-row gap-6 items-center">
+                        <div class="relative w-32 h-24 bg-gray-100 rounded-lg overflow-hidden border">
+                            <img :src="v.image" class="w-full h-full object-cover">
+                            <input type="file" @change="handleFileUpload($event, 'vacancies', i)" class="absolute inset-0 opacity-0 cursor-pointer">
+                        </div>
+                        <div class="flex-1 space-y-2 w-full">
+                            <input v-model="v.title" class="block w-full font-bold border-none p-0 focus:ring-0 text-lg" placeholder="Sarlavha">
+                            <input v-model="v.salary" class="block w-full text-blue-600 border-none p-0 focus:ring-0" placeholder="Maosh">
+                            <input v-model="v.link" class="block w-full text-gray-400 text-sm border-none p-0 focus:ring-0" placeholder="Google Form Link">
+                        </div>
+                        <button @click="vacancies.splice(i, 1)" class="text-red-400 hover:text-red-600 px-4"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="tab == 'visas'">
+                <div class="flex justify-between items-center mb-8">
+                    <h2 class="text-2xl font-bold">Viza natijalari</h2>
+                    <button @click="addVisa" class="bg-green-600 text-white px-6 py-2 rounded-xl">+ Yangi natija</button>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div v-for="(v, i) in visas" class="bg-white p-4 rounded-2xl shadow-sm relative group">
+                        <button @click="visas.splice(i, 1)" class="absolute top-2 right-2 bg-red-500 text-white w-6 h-6 rounded-full text-xs opacity-0 group-hover:opacity-100">X</button>
+                        <div class="w-full h-40 bg-gray-100 rounded-xl mb-3 overflow-hidden relative">
+                            <img :src="v.photo" class="w-full h-full object-cover">
+                            <input type="file" @change="handleFileUpload($event, 'visas', i)" class="absolute inset-0 opacity-0 cursor-pointer">
+                        </div>
+                        <input v-model="v.name" class="font-bold w-full border-none p-0 text-sm mb-1" placeholder="Ism sharif">
+                        <input v-model="v.city" class="text-xs text-gray-500 w-full border-none p-0" placeholder="Shahar">
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="tab == 'inbox'">
+                <h2 class="text-2xl font-bold mb-8">Kelgan xabarlar</h2>
+                <div class="space-y-4">
+                    <div v-for="(m, i) in inbox" class="bg-white p-6 rounded-2xl border-l-4 border-hoffblue-600 shadow-sm relative">
+                        <button @click="inbox.splice(i, 1)" class="absolute top-4 right-4 text-gray-300 hover:text-red-500"><i class="fa-solid fa-xmark"></i></button>
+                        <h4 class="font-bold text-lg mb-1">{{ m.name }}</h4>
+                        <p class="text-hoffblue-600 font-bold mb-2">{{ m.phone }}</p>
+                        <p class="text-gray-600 bg-gray-50 p-4 rounded-lg">{{ m.msg }}</p>
+                        <span class="text-[10px] text-gray-400 mt-2 block">{{ m.time }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 sticky bottom-8">
+                <button @click="saveEverything" class="bg-hoffblue-600 text-white w-full py-5 rounded-2xl font-bold text-xl shadow-2xl hover:bg-hoffblue-900 transition">Barcha o'zgarishlarni saqlash</button>
+            </div>
+        </main>
+    </div>
+
+    <a href="https://t.me/humoyun_hoff" target="_blank" class="fixed bottom-8 right-8 bg-[#0088cc] text-white w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-[0_10px_30px_rgba(0,136,204,0.4)] hover:scale-110 active:scale-95 transition-all z-[99]">
+        <i class="fa-brands fa-telegram"></i>
+    </a>
 </div>
 
 <script>
-const data = [
-    // 1-50: Asboblar va vositalar
-    {de: "der Staubsauger", uz: "changyutgich", pr: "der shtaup-zauger", lvl: "A1"},
-    {de: "der Besen", uz: "supurgi", pr: "der bezen", lvl: "A1"},
-    {de: "der Mopp", uz: "shvabra", pr: "der mop", lvl: "A1"},
-    {de: "der Eimer", uz: "paqir", pr: "der aymer", lvl: "A1"},
-    {de: "das Mikrofasertuch", uz: "mikrofibra latta", pr: "das mikro-faza-tux", lvl: "A2"},
-    {de: "der Glasreiniger", uz: "oyna tozalagich", pr: "der glas-rayniger", lvl: "A2"},
-    {de: "der Bodenreiniger", uz: "pol yuvish vositasi", pr: "der boden-rayniger", lvl: "A2"},
-    {de: "die Kehrschaufel", uz: "kurakcha", pr: "di ker-shaufel", lvl: "A2"},
-    {de: "der Hochdruckreiniger", uz: "bosimli yuvish mashinasi", pr: "der hox-druk-rayniger", lvl: "B1"},
-    {de: "die Leiter", uz: "narvon", pr: "di layter", lvl: "A1"},
-    {de: "der Schwamm", uz: "gubka", pr: "der shvamm", lvl: "A1"},
-    {de: "die Bürste", uz: "cho'tka", pr: "di burste", lvl: "A1"},
-    {de: "der Müllbeutel", uz: "chiqindi qopi", pr: "der mull-boytel", lvl: "A2"},
-    {de: "die Gummihandschuhe", uz: "rezina qo'lqop", pr: "di gummi-hant-shu-e", lvl: "A2"},
-    {de: "der Fensterabzieher", uz: "oyna rezina artgichi", pr: "der fenster-ap-tsier", lvl: "B1"},
-    {de: "der Handfeger", uz: "qo'l supurgisi", pr: "der hant-feger", lvl: "B1"},
-    {de: "die Polierpad", uz: "polirovka yostiqchasi", pr: "di polir-pad", lvl: "B2"},
-    {de: "der Wasserschlauch", uz: "shlang", pr: "der vasser-shlaux", lvl: "A2"},
-    {de: "der Reinigungswagen", uz: "tozalash aravachasi", pr: "der raynigungs-vagen", lvl: "B1"},
-    {de: "das Reinigungsmittel", uz: "tozalash vositasi", pr: "das raynigungs-mitel", lvl: "A2"},
-    {de: "der Entkalker", uz: "tosh (kalk) erituvchi", pr: "der ent-kalker", lvl: "B1"},
-    {de: "das Desinfektionsspray", uz: "dezinfeksiya spreyi", pr: "das dez-infeksion-shprey", lvl: "A2"},
-    {de: "die Sprühflasche", uz: "purkagich idish", pr: "di shpru-flashe", lvl: "A2"},
-    {de: "der Schaber", uz: "qirg'ich (skreper)", pr: "der shaber", lvl: "B1"},
-    {de: "die Schutzbrille", uz: "himoya ko'zoynagi", pr: "di shuts-brille", lvl: "A2"},
-    {de: "der WC-Reiniger", uz: "tualet tozalagich", pr: "der ve-tse rayniger", lvl: "A2"},
-    {de: "die Scheuermilch", uz: "tozalash kremi", pr: "di shoyer-milx", lvl: "B1"},
-    {de: "der Allzweckreiniger", uz: "universal tozalagich", pr: "der al-tsevek rayniger", lvl: "B1"},
-    {de: "der Teppichreiniger", uz: "gilam tozalagich", pr: "der tepix rayniger", lvl: "A2"},
-    {de: "der Kalkentferner", uz: "ohak tozalovchi", pr: "der kalk-ent-ferner", lvl: "B1"},
-    {de: "das Geschirrspülmittel", uz: "idish yuvish geli", pr: "das gesher-shpul-mitel", lvl: "A2"},
-    {de: "der Lufterfrischer", uz: "havo taratgich", pr: "der luft-erfrisher", lvl: "A2"},
-    {de: "die Seife", uz: "sovun", pr: "di zayfe", lvl: "A1"},
-    {de: "das Handtuch", uz: "sochiq", pr: "das hant-tux", lvl: "A1"},
-    {de: "das Toilettenpapier", uz: "tualet qog'ozi", pr: "das tualetten-papir", lvl: "A1"},
-    {de: "der Mülleimer", uz: "chiqindi chelagi", pr: "der mull-aymer", lvl: "A1"},
-    {de: "die Arbeitskleidung", uz: "ish kiyimi", pr: "di arbayts-klaydung", lvl: "A2"},
-    {de: "die Sicherheitsschuhe", uz: "maxsus poyabzal", pr: "di zixer-hayts-shu-e", lvl: "B1"},
-    {de: "die Warnweste", uz: "nur qaytaruvchi nimcha", pr: "di varn-veste", lvl: "A2"},
-    {de: "das Warnschild", uz: "ogohlantirish belgisi", pr: "das varn-shilt", lvl: "B1"},
-    {de: "der Glasschaber", uz: "oyna qirg'ichi", pr: "der glas-shaber", lvl: "B1"},
-    {de: "der Staubwedel", uz: "patli chang artgich", pr: "der shtaup-vedel", lvl: "B1"},
-    {de: "die Sprühpistole", uz: "purkagich to'pponchasi", pr: "di shpru-pistole", lvl: "B2"},
-    {de: "der Putzlappen", uz: "latta", pr: "der puts-lappen", lvl: "A2"},
-    {de: "das Fensterleder", uz: "oyna artish kojasi", pr: "das fenster-leder", lvl: "B1"},
-    {de: "der Heizkörperreiniger", uz: "batareya tozalagich", pr: "der hayts-korper-rayniger", lvl: "B2"},
-    {de: "der Schrubber", uz: "qattiq cho'tkali shvabra", pr: "der shrubber", lvl: "B1"},
-    {de: "die Fugendüse", uz: "tirqishli uchlik (changyutgich)", pr: "di fugen-duze", lvl: "B2"},
-    {de: "die Polsterdüse", uz: "yumshoq mebel uchligi", pr: "di polster-duze", lvl: "B2"},
-    {de: "der Staubsaugerbeutel", uz: "changyutgich qopi", pr: "der shtaup-zauger-boytel", lvl: "A2"},
+    const { createApp } = Vue;
+    createApp({
+        data() {
+            return {
+                adminActive: false,
+                showLogin: false,
+                loginPass: '',
+                tab: 'vacancies',
+                
+                // Form
+                form: { name: '', phone: '', msg: '' },
 
-    // 51-100: Fe'llar va Jarayonlar
-    {de: "wischen", uz: "namlab artmoq", pr: "vishen", lvl: "A1"},
-    {de: "fegen", uz: "supurmoq", pr: "fegen", lvl: "A2"},
-    {de: "saugen", uz: "changyutgich qilmoq", pr: "zaugen", lvl: "A1"},
-    {de: "putzen", uz: "tozalamoq", pr: "putsen", lvl: "A1"},
-    {de: "schrubben", uz: "cho'tka bilan ishqalamoq", pr: "shrubben", lvl: "B1"},
-    {de: "polieren", uz: "yaltiratmoq", pr: "poliren", lvl: "B1"},
-    {de: "ausleeren", uz: "bo'shatmoq (axlatni)", pr: "aus-leren", lvl: "A2"},
-    {de: "nachfüllen", uz: "to'ldirmoq (sovunni)", pr: "nax-fullen", lvl: "A2"},
-    {de: "entstauben", uz: "changni artmoq", pr: "ent-shtauben", lvl: "B1"},
-    {de: "desinfizieren", uz: "dezinfeksiya qilmoq", pr: "dez-infitsiren", lvl: "B1"},
-    {de: "trocknen", uz: "quritmoq", pr: "troknen", lvl: "A2"},
-    {de: "abwischen", uz: "ustidan artib tashlamoq", pr: "ap-vishen", lvl: "A2"},
-    {de: "aufräumen", uz: "yig'ishtirmoq", pr: "auf-roymen", lvl: "A1"},
-    {de: "lüften", uz: "shamollatmoq", pr: "luften", lvl: "A2"},
-    {de: "einweichen", uz: "ivishga qo'ymoq", pr: "ayn-vayxen", lvl: "B1"},
-    {de: "spülen", uz: "chaymoq", pr: "shpulen", lvl: "A1"},
-    {de: "verdünnen", uz: "suyultirmoq (suv bilan)", pr: "fer-dunnen", lvl: "B2"},
-    {de: "anwenden", uz: "qo'llamoq / ishlatmoq", pr: "an-venden", lvl: "B1"},
-    {de: "beseitigen", uz: "yo'qotmoq (iflosni)", pr: "be-zaytigen", lvl: "B1"},
-    {de: "glänzen", uz: "yaltiramoq", pr: "glentsen", lvl: "A2"},
-    {de: "waschen", uz: "yuvmoq", pr: "vashen", lvl: "A1"},
-    {de: "entfernen", uz: "olib tashlamoq", pr: "ent-ferner", lvl: "B1"},
-    {de: "reinigen", uz: "tozalamoq (rasmiy)", pr: "raynigen", lvl: "A2"},
-    {de: "pflegen", uz: "parvarishlamoq", pr: "pflegen", lvl: "A2"},
-    {de: "kehren", uz: "supurmoq (kehren)", pr: "keren", lvl: "B1"},
-    {de: "moppen", uz: "shvabra bilan artmoq", pr: "moppen", lvl: "A2"},
-    {de: "sprühen", uz: "purkamoq", pr: "shpru-en", lvl: "B1"},
-    {de: "einreiben", uz: "ishqalab surkamoq", pr: "ayn-rayben", lvl: "B2"},
-    {de: "auftragen", uz: "surkamoq / surmoq", pr: "auf-tragen", lvl: "B1"},
-    {de: "abspülen", uz: "chayib tashlamoq", pr: "ap-shpulen", lvl: "A2"},
-    {de: "aufwischen", uz: "artib olmoq", pr: "auf-vishen", lvl: "A2"},
-    {de: "staubwischen", uz: "chang artmoq", pr: "shtaup-vishen", lvl: "A2"},
-    {de: "glattstreichen", uz: "tekislash", pr: "glat-shtrayxen", lvl: "B2"},
-    {de: "auswringen", uz: "siqmoq (lattani)", pr: "aus-vringen", lvl: "B1"},
-    {de: "eintauchen", uz: "botirmoq", pr: "ayn-tauchen", lvl: "B1"},
-    {de: "nachwischen", uz: "qayta artib chiqmoq", pr: "nax-vishen", lvl: "B2"},
-    {de: "vorbereiten", uz: "tayyorlamoq", pr: "for-berayten", lvl: "A2"},
-    {de: "entsorgen", uz: "chiqitga chiqarmoq", pr: "ent-zorgen", lvl: "B1"},
-    {de: "wechseln", uz: "almashtirmoq", pr: "vekseln", lvl: "A2"},
-    {de: "leeren", uz: "bo'shatmoq", pr: "leren", lvl: "A2"},
-    {de: "prüfen", uz: "tekshirmoq", pr: "prufen", lvl: "A2"},
-    {de: "kontrollieren", uz: "nazorat qilmoq", pr: "kontrolliren", lvl: "A2"},
-    {de: "mischen", uz: "aralashtirmoq", pr: "mishen", lvl: "A2"},
-    {de: "dosieren", uz: "dozirovka qilish", pr: "doziren", lvl: "B1"},
-    {de: "einwirken", uz: "ta'sir qilishi", pr: "ayn-virken", lvl: "B2"},
-    {de: "lüften", uz: "havo almashtirmoq", pr: "luften", lvl: "A2"},
-    {de: "bearbeiten", uz: "ishlov bermoq", pr: "be-arbayten", lvl: "B1"},
-    {de: "auswaschen", uz: "yuvib tashlamoq", pr: "aus-vashen", lvl: "B1"},
-    {de: "aufhängen", uz: "osib qo'ymoq", pr: "auf-hengen", lvl: "A2"},
-    {de: "saubermachen", uz: "tozalamoq (oddiy)", pr: "zauber-maxen", lvl: "A1"},
-
-    // 101-150: Sifatlar va Holatlar
-    {de: "sauber", uz: "toza", pr: "zauber", lvl: "A1"},
-    {de: "schmutzig", uz: "iflos", pr: "shmutsig", lvl: "A1"},
-    {de: "dreckig", uz: "juda iflos", pr: "drekig", lvl: "A2"},
-    {de: "fettig", uz: "yog'li", pr: "fet-tig", lvl: "A2"},
-    {de: "klebrig", uz: "yopishqoq", pr: "klebrig", lvl: "B1"},
-    {de: "staubig", uz: "changli", pr: "shtaup-ig", lvl: "A2"},
-    {de: "verkalkt", uz: "ohaklangan", pr: "fer-kalkt", lvl: "B1"},
-    {de: "nass", uz: "ho'l", pr: "nas", lvl: "A1"},
-    {de: "feucht", uz: "nam", pr: "foyxt", lvl: "A2"},
-    {de: "trocken", uz: "quruq", pr: "troknen", lvl: "A1"},
-    {de: "glänzend", uz: "yaltiroq", pr: "glentsent", lvl: "B1"},
-    {de: "matt", uz: "xira / xira rang", pr: "mat", lvl: "B1"},
-    {de: "rutschig", uz: "sirpanchiq", pr: "rutshig", lvl: "A2"},
-    {de: "hygienisch", uz: "gigiyenik", pr: "higiyenish", lvl: "B1"},
-    {de: "steril", uz: "steril", pr: "steril", lvl: "B2"},
-    {de: "rein", uz: "pok / toza", pr: "rayn", lvl: "A2"},
-    {de: "unrein", uz: "notoza", pr: "un-rayn", lvl: "B1"},
-    {de: "duftend", uz: "hidi yoqimli", pr: "duftent", lvl: "B1"},
-    {de: "stinkend", uz: "sasigan", pr: "shtinkent", lvl: "A2"},
-    {de: "ätzend", uz: "o'yuvchi", pr: "etsent", lvl: "B2"},
-    {de: "giftig", uz: "zaharli", pr: "giftig", lvl: "A2"},
-    {de: "brennbar", uz: "tez yonuvchan", pr: "brenn-bar", lvl: "B2"},
-    {de: "explosiv", uz: "portlovchi", pr: "eksploziv", lvl: "B1"},
-    {de: "gefährlich", uz: "xavfli", pr: "ge-ferlix", lvl: "A2"},
-    {de: "ungefährlich", uz: "xavfsiz", pr: "un-ge-ferlix", lvl: "B1"},
-    {de: "gründlich", uz: "yaxshilab / puxta", pr: "grundlix", lvl: "B1"},
-    {de: "oberflächlich", uz: "yuzaki", pr: "ober-flexlix", lvl: "B2"},
-    {de: "regelmäßig", uz: "muntazam", pr: "regel-mesig", lvl: "A2"},
-    {de: "täglich", uz: "har kuni", pr: "teglix", lvl: "A1"},
-    {de: "wöchentlich", uz: "haftalik", pr: "voxent-lix", lvl: "A1"},
-    {de: "monatlich", uz: "oylik", pr: "monat-lix", lvl: "A2"},
-    {de: "sofort", uz: "darhol", pr: "zo-fort", lvl: "A1"},
-    {de: "später", uz: "keyinroq", pr: "shpeter", lvl: "A1"},
-    {de: "jetzt", uz: "hozir", pr: "yetst", lvl: "A1"},
-    {de: "fertig", uz: "tayyor / tugadi", pr: "fertig", lvl: "A1"},
-    {de: "leer", uz: "bo'sh", pr: "ler", lvl: "A1"},
-    {de: "voll", uz: "to'la", pr: "fol", lvl: "A1"},
-    {de: "kaputt", uz: "buzilgan", pr: "kaput", lvl: "A1"},
-    {de: "neu", uz: "yangi", pr: "noy", lvl: "A1"},
-    {de: "alt", uz: "eski", pr: "alt", lvl: "A1"},
-    {de: "heiß", uz: "issiq", pr: "hays", lvl: "A1"},
-    {de: "warm", uz: "iliq", pr: "varm", lvl: "A1"},
-    {de: "kalt", uz: "sovuq", pr: "kalt", lvl: "A1"},
-    {de: "sauer", uz: "kislotali / nordon", pr: "zauer", lvl: "B1"},
-    {de: "alkalisch", uz: "ishqorli", pr: "alkalish", lvl: "B2"},
-    {de: "neutral", uz: "neytral", pr: "noytral", lvl: "B1"},
-    {de: "umweltfreundlich", uz: "ekologik toza", pr: "umvelt-froyndlix", lvl: "B1"},
-    {de: "ergonomisch", uz: "ergonomik", pr: "ergonomish", lvl: "B2"},
-    {de: "effektiv", uz: "samarali", pr: "effektiv", lvl: "B1"},
-    {de: "sichtbar", uz: "ko'rinadigan", pr: "zixt-bar", lvl: "B1"},
-
-    // 151-220: Joylar, Materiallar va Qismlar (Mehmonxona va Ofis uchun yangi so'zlar)
-    {de: "die Bettwäsche", uz: "choyshablar to'plami", pr: "di bet-veshe", lvl: "A2"},
-    {de: "das Bettlaken", uz: "choyshab", pr: "das bet-laken", lvl: "A2"},
-    {de: "das Kopfkissen", uz: "yostiq", pr: "das kopf-kissen", lvl: "A1"},
-    {de: "die Matratze", uz: "matras", pr: "di matratse", lvl: "A2"},
-    {de: "der Kleiderschrank", uz: "kiyim shkafi", pr: "der klayder-shrank", lvl: "A1"},
-    {de: "der Spiegel", uz: "oyna (ko'zgu)", pr: "der shpigel", lvl: "A1"},
-    {de: "das Waschbecken", uz: "rakovina", pr: "das vash-beken", lvl: "A2"},
-    {de: "die Dusche", uz: "dush", pr: "di dushe", lvl: "A1"},
-    {de: "die Badewanne", uz: "vanna", pr: "di bade-vanne", lvl: "A1"},
-    {de: "das Badetuch", uz: "katta vanna sochiq", pr: "das bade-tux", lvl: "A2"},
-    {de: "der Föhn", uz: "fen", pr: "der fon", lvl: "A2"},
-    {de: "das Shampoo", uz: "shampun", pr: "das shampu", lvl: "A1"},
-    {de: "das Duschgel", uz: "dush geli", pr: "das dush-gel", lvl: "A1"},
-    {de: "der Müllsack", uz: "katta axlat qopi", pr: "der mull-zak", lvl: "A2"},
-    {de: "der Restmüll", uz: "aralash chiqindi", pr: "der rest-mull", lvl: "B1"},
-    {de: "der Biomüll", uz: "biologik chiqindi", pr: "der bio-mull", lvl: "B1"},
-    {de: "das Altpapier", uz: "makulatura / eski qog'oz", pr: "das alt-papir", lvl: "B1"},
-    {de: "das Glas", uz: "shisha", pr: "das glas", lvl: "A1"},
-    {de: "das Holz", uz: "yog'och", pr: "das holts", lvl: "A2"},
-    {de: "der Kunststoff", uz: "plastmassa", pr: "der kunst-shtof", lvl: "B1"},
-    {de: "der Edelstahl", uz: "zanglamas metall", pr: "der edel-shtal", lvl: "B2"},
-    {de: "der Marmor", uz: "marmar", pr: "der marmor", lvl: "B1"},
-    {de: "die Unterhaltsreinigung", uz: "muntazam tozalash", pr: "di unter-halts-raynigung", lvl: "B2"},
-    {de: "die Grundreinigung", uz: "umumiy tozalash", pr: "di grunt-raynigung", lvl: "B2"},
-    {de: "die Glasreinigung", uz: "oyna tozalash", pr: "di glas-raynigung", lvl: "B1"},
-    {de: "die Baureinigung", uz: "qurilishdan keyingi tozalash", pr: "di bau-raynigung", lvl: "B2"},
-    {de: "das Treppenhaus", uz: "zina yo'lagi", pr: "das treppen-haus", lvl: "A2"},
-    {de: "der Flur", uz: "koridor", pr: "der flur", lvl: "A2"},
-    {de: "das Büro", uz: "ofis", pr: "das buro", lvl: "A1"},
-    {de: "die Toilette", uz: "tualet", pr: "di tualette", lvl: "A1"},
-    {de: "die Küche", uz: "oshxona", pr: "di kuxe", lvl: "A1"},
-    {de: "das Badezimmer", uz: "vanna xonasi", pr: "das bade-tsimmer", lvl: "A1"},
-    {de: "der Aufzug", uz: "lift", pr: "der auf-tsug", lvl: "A2"},
-    {de: "das Fensterbrett", uz: "podokonnik", pr: "das fenster-bret", lvl: "B1"},
-    {de: "die Türklinke", uz: "eshik tutqichi", pr: "di tur-klinke", lvl: "A2"},
-    {de: "der Lichtschalter", uz: "svet yoqgich", pr: "der lixt-shalter", lvl: "A2"},
-    {de: "die Heizung", uz: "isitish tizimi / batareya", pr: "di haytsung", lvl: "A2"},
-    {de: "die Oberfläche", uz: "yuza / ustki qism", pr: "di ober-flexe", lvl: "B1"},
-    {de: "die Ecke", uz: "burchak", pr: "di ekke", lvl: "A2"},
-    {de: "die Kante", uz: "cheti / qirrasi", pr: "di kante", lvl: "B1"},
-    {de: "der Boden", uz: "pol", pr: "der boden", lvl: "A1"},
-    {de: "die Decke", uz: "shift / potolok", pr: "di dekke", lvl: "A2"},
-    {de: "die Wand", uz: "devor", pr: "di vant", lvl: "A1"},
-    {de: "der Teppich", uz: "gilam", pr: "der tepix", lvl: "A1"},
-    {de: "die Fliesen", uz: "kafel / plitka", pr: "di flizen", lvl: "A2"},
-    {de: "das Laminat", uz: "laminat", pr: "das laminat", lvl: "A2"},
-    {de: "das Parkett", uz: "parket", pr: "das parket", lvl: "B1"},
-    {de: "das Linoleum", uz: "linoleum", pr: "das linoleum", lvl: "B1"},
-    {de: "die Fuge", uz: "plitka choki", pr: "di fuge", lvl: "B2"},
-    {de: "das Reinigungsobjekt", uz: "tozalash obyekti", pr: "das raynigungs-obyekt", lvl: "B1"},
-
-    // 221-270: Ish jarayoni va xavfsizlik (Professional terminlar)
-    {de: "der Dienstplan", uz: "ish rejasi", pr: "der dinst-plan", lvl: "A2"},
-    {de: "die Arbeitszeit", uz: "ish vaqti", pr: "di arbayts-tsayt", lvl: "A2"},
-    {de: "die Pause", uz: "tanaffus", pr: "di pauze", lvl: "A1"},
-    {de: "der Vorgesetzte", uz: "boshliq / menejer", pr: "der for-ge-zetste", lvl: "B1"},
-    {de: "der Kollege", uz: "hamkasb", pr: "der kollege", lvl: "A1"},
-    {de: "der Kunde", uz: "mijoz", pr: "der kunde", lvl: "A1"},
-    {de: "die Unterschrift", uz: "imzo", pr: "di unter-shrift", lvl: "A2"},
-    {de: "das Protokoll", uz: "bayonnoma / jurnal", pr: "das protokoll", lvl: "B1"},
-    {de: "die Schicht", uz: "smena", pr: "di shixt", lvl: "A2"},
-    {de: "die Überstunden", uz: "ishdan tashqari vaqt", pr: "di uber-shtunden", lvl: "B1"},
-    {de: "der Schlüsselbund", uz: "kalitlar shodasi", pr: "der shlussel-bunt", lvl: "A2"},
-    {de: "die Alarmanlage", uz: "signalizatsiya", pr: "di alarm-an-lage", lvl: "B1"},
-    {de: "der Notfall", uz: "favqulodda vaziyat", pr: "der not-fall", lvl: "A2"},
-    {de: "Erste Hilfe", uz: "birinchi yordam", pr: "erste hilfe", lvl: "A2"},
-    {de: "der Feuerlöscher", uz: "o't o'chirgich", pr: "der foyer-losher", lvl: "B1"},
-    {de: "der Notausgang", uz: "zaxira chiqish yo'li", pr: "der not-aus-gang", lvl: "A2"},
-    {de: "die Anweisung", uz: "ko'rsatma", pr: "di an-vayzung", lvl: "B1"},
-    {de: "das Sicherheitsdatenblatt", uz: "xavfsizlik varag'i", pr: "das zixer-hayts-daten-blat", lvl: "B2"},
-    {de: "die Dosieranlage", uz: "dozalash tizimi", pr: "di dozir-an-lage", lvl: "B2"},
-    {de: "der Kanister", uz: "kanistra", pr: "der kanister", lvl: "B1"},
-    {de: "der Deckel", uz: "qopqoq", pr: "der dekel", lvl: "A2"},
-    {de: "die Öffnung", uz: "teshik / ochilish joyi", pr: "di offnung", lvl: "B1"},
-    {de: "der Fleck", uz: "dog'", pr: "der flek", lvl: "A2"},
-    {de: "die Verschmutzung", uz: "ifloslanish", pr: "di fer-shmutsung", lvl: "B1"},
-    {de: "der Staub", uz: "chang", pr: "der shtaup", lvl: "A1"},
-    {de: "der Abfall", uz: "chiqindi", pr: "der ap-fall", lvl: "A2"},
-    {de: "die Asche", uz: "kul", pr: "di ashe", lvl: "B1"},
-    {de: "der Kaugummi", uz: "saqich", pr: "der kau-gummi", lvl: "A2"},
-    {de: "die Spinne", uz: "o'rgimchak", pr: "di shpinne", lvl: "A2"},
-    {de: "das Spinnengewebe", uz: "o'rgimchak to'ri", pr: "das shpinnen-ge-vebe", lvl: "B1"},
-    {de: "der Kalk", uz: "ohak / tarozi", pr: "der kalk", lvl: "B1"},
-    {de: "der Rost", uz: "zang", pr: "der rost", lvl: "B1"},
-    {de: "der Urinstein", uz: "siydik toshi", pr: "der urin-shtayn", lvl: "B2"},
-    {de: "die Bakterien", pr: "bakteriyalar", uz: "di bakterien", lvl: "A2"},
-    {de: "der Schimmel", uz: "mog'or", pr: "der shimmel", lvl: "B1"},
-    {de: "die Feuchtigkeit", uz: "namlik", pr: "di foyxtig-kayt", lvl: "B1"},
-    {de: "das Wasser", uz: "suv", pr: "das vasser", lvl: "A1"},
-    {de: "das Abwasser", uz: "oqova suv", pr: "das ap-vasser", lvl: "B1"},
-    {de: "der Abfluss", uz: "suv oqadigan joy / truba", pr: "der ap-fluss", lvl: "B1"},
-    {de: "verstopft", uz: "tiqilib qolgan", pr: "fer-shtopft", lvl: "B2"},
-    {de: "undicht", uz: "teshik / suv o'tkazadigan", pr: "un-dixt", lvl: "B2"},
-    {de: "tropfen", uz: "tomchilash", pr: "tropfen", lvl: "B1"},
-    {de: "der Geruch", uz: "hid", pr: "der ge-rux", lvl: "A2"},
-    {de: "die Belüftung", uz: "ventilyatsiya", pr: "di be-luftung", lvl: "B1"},
-    {de: "das Licht", uz: "yorug'lik", pr: "das lixt", lvl: "A1"},
-    {de: "dunkel", uz: "qorong'u", pr: "dunkel", lvl: "A1"},
-    {de: "hell", uz: "yorug'", pr: "hel", lvl: "A1"},
-    {de: "geschlossen", uz: "yopiq", pr: "ge-shlossen", lvl: "A1"},
-    {de: "offen", uz: "ochiq", pr: "offen", lvl: "A1"},
-    {de: "defekt", uz: "ishlamayapti / buzuq", pr: "defekt", lvl: "A2"},
-
-    // 271-300: Eng kerakli gaplar va muloqot (Mehmonxona xodimi va mijoz o'rtasida)
-    {de: "Vorsicht, rutschig!", uz: "Ehtiyot bo'ling, sirpanchiq!", pr: "forzixt, rutshig", lvl: "A1"},
-    {de: "Darf ich hier putzen?", uz: "Bu yerni tozalasam bo'ladimi?", pr: "darf ix hir putsen", lvl: "A2"},
-    {de: "Ich bin fertig.", uz: "Men tugatdim.", pr: "ix bin fertig", lvl: "A1"},
-    {de: "Wo ist der Müll?", uz: "Chiqindi qayerda?", pr: "vo ist der mull", lvl: "A1"},
-    {de: "Ich brauche mehr Seife.", uz: "Menga ko'proq sovun kerak.", pr: "ix brauxe mer zayfe", lvl: "A2"},
-    {de: "Das Waschbecken ist sauber.", uz: "Rakovina toza.", pr: "das vash-beken ist zauber", lvl: "A2"},
-    {de: "Bitte Abstand halten.", uz: "Iltimos, masofa saqlang.", pr: "bitte ap-shtant halten", lvl: "A2"},
-    {de: "Der Boden ist nass.", uz: "Pol ho'l.", pr: "der boden ist nas", lvl: "A1"},
-    {de: "Das Fenster ist streifig.", uz: "Oynada chiziqlar qolibdi.", pr: "das fenster ist shtrayfig", lvl: "B1"},
-    {de: "Haben Sie einen Schlüssel?", uz: "Sizda kalit bormi?", pr: "haben zi aynen shlussel", lvl: "A1"},
-    {de: "Wo finde ich das Wasser?", uz: "Suvni qayerdan topaman?", pr: "vo finde ix das vasser", lvl: "A1"},
-    {de: "Das Tuch ist schmutzig.", uz: "Latta iflos.", pr: "das tux ist shmutsig", lvl: "A1"},
-    {de: "Ich reinige den Flur.", uz: "Men koridorni tozalayapman.", pr: "ix raynige den flur", lvl: "A2"},
-    {de: "Ist das Zimmer frei?", uz: "Xona bo'shmi?", pr: "ist das tsimmer fray", lvl: "A1"},
-    {de: "Hier riecht es gut.", uz: "Bu yerda hid yaxshi.", pr: "hir rixt es gut", lvl: "A2"},
-    {de: "Muss ich hier saugen?", uz: "Bu yerda changyutgich qilishim kerakmi?", pr: "mus ix hir zaugen", lvl: "A2"},
-    {de: "Soll ich das wischen?", uz: "Buni artishim kerakmi?", pr: "zol ix das vishen", lvl: "A2"},
-    {de: "Wo sind die Mülltüten?", uz: "Axlat qoplari qayerda?", pr: "vo zint di mull-tuten", lvl: "A2"},
-    {de: "Der Eimer ist voll.", uz: "Paqir to'ldi.", pr: "der aymer ist fol", lvl: "A1"},
-    {de: "Ich fange jetzt an.", uz: "Men hozir boshlayman.", pr: "ix fange yetst an", lvl: "A2"},
-    {de: "Kann ich reinkommen?", uz: "Kirishim mumkinmi?", pr: "kan ix rayn-kommen", lvl: "A1"},
-    {de: "Einen Moment, bitte.", uz: "Bir daqiqa iltimos.", pr: "aynen moment bitte", lvl: "A1"},
-    {de: "Vielen Dank.", uz: "Katta rahmat.", pr: "filen dank", lvl: "A1"},
-    {de: "Guten Tag.", uz: "Xayrli kun.", pr: "guten tag", lvl: "A1"},
-    {de: "Auf Wiedersehen.", uz: "Ko'rishguncha xayr.", pr: "auf vider-ze-en", lvl: "A1"},
-    {de: "Brauchen Sie frische Handtücher?", uz: "Yangi sochiqlar kerakmi?", pr: "brauxen zi frishe hant-tuxer", lvl: "A2"},
-    {de: "Ich habe das Zimmer gereinigt.", uz: "Men xonani tozaladim.", pr: "ix habe das tsimmer ge-raynigt", lvl: "A2"},
-    {de: "Soll ich das Bett machen?", uz: "Karavotni to'g'rilab qo'yaymi?", pr: "zol ix das bet maxen", lvl: "A2"},
-    {de: "Das Zimmer ist noch belegt.", uz: "Xonada hali odam bor.", pr: "das tsimmer ist nox belegt", lvl: "B1"},
-    {de: "Bitte nicht stören.", uz: "Iltimos, bezovta qilmang.", pr: "bitte nixt shtoren", lvl: "A1"}
-];
-
-let currentIdx = 0;
-let mode = '';
-let shuffleData = [];
-let isAnswering = false; // Javob berilayotganda bloklash uchun
-
-function start(m) {
-    mode = m;
-    shuffleData = [...data].sort(() => 0.5 - Math.random());
-    currentIdx = 0;
-    document.getElementById('menu').classList.add('hidden');
-    document.getElementById('game').classList.remove('hidden');
-    render();
-}
-
-function speak(t) {
-    const s = window.speechSynthesis;
-    const u = new SpeechSynthesisUtterance(t);
-    u.lang = 'de-DE';
-    s.speak(u);
-}
-
-function render() {
-    isAnswering = false;
-    if(currentIdx >= shuffleData.length) {
-        document.getElementById('display').innerHTML = "<h2>🎉 G'alaba! 300 ta so'zni o'rgandingiz!</h2><p>Germaniyadagi ishingizda omad tilaymiz!</p>";
-        document.getElementById('fill').style.width = "100%";
-        return;
-    }
-    const item = shuffleData[currentIdx];
-    const disp = document.getElementById('display');
-    document.getElementById('fill').style.width = (currentIdx / data.length * 100) + "%";
-
-    const badge = `<div class="level-badge">${item.lvl}</div>`;
-
-    if(mode === 'quiz') {
-        let opts = [item.uz];
-        while(opts.length < 4) {
-            let r = data[Math.floor(Math.random()*data.length)].uz;
-            if(!opts.includes(r)) opts.push(r);
+                // Data Store
+                vacancies: JSON.parse(localStorage.getItem('h_v_jobs')) || [
+                    { id: 1, title: 'Hotel Housekeeping (Munich)', salary: '1900-2100', link: 'https://forms.gle/test', image: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400' }
+                ],
+                visas: JSON.parse(localStorage.getItem('h_v_visas')) || [
+                    { id: 1, name: 'Asadbek Karimov', city: 'Berlin (Work Visa)', photo: 'https://randomuser.me/api/portraits/men/1.jpg' }
+                ],
+                inbox: JSON.parse(localStorage.getItem('h_v_inbox')) || []
+            }
+        },
+        methods: {
+            checkLogin() {
+                if(this.loginPass === 'hoff2026') {
+                    this.adminActive = true;
+                    this.showLogin = false;
+                    this.loginPass = '';
+                } else {
+                    alert('Parol noto\'g\'ri!');
+                }
+            },
+            logout() {
+                this.adminActive = false;
+            },
+            // Upload logic
+            handleFileUpload(event, type, index) {
+                const file = event.target.files[0];
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    if(type === 'vacancies') this.vacancies[index].image = e.target.result;
+                    if(type === 'visas') this.visas[index].photo = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            },
+            // List actions
+            addVacancy() {
+                this.vacancies.unshift({ id: Date.now(), title: 'Yangi ish', salary: '0', link: '#', image: 'https://via.placeholder.com/400x300' });
+            },
+            addVisa() {
+                this.visas.unshift({ id: Date.now(), name: 'Ism', city: 'Shahar', photo: 'https://via.placeholder.com/300x400' });
+            },
+            // Messaging
+            submitContact() {
+                const msg = { ...this.form, time: new Date().toLocaleString() };
+                this.inbox.unshift(msg);
+                localStorage.setItem('h_v_inbox', JSON.stringify(this.inbox));
+                alert('Xabar yuborildi!');
+                this.form = { name: '', phone: '', msg: '' };
+            },
+            saveEverything() {
+                localStorage.setItem('h_v_jobs', JSON.stringify(this.vacancies));
+                localStorage.setItem('h_v_visas', JSON.stringify(this.visas));
+                localStorage.setItem('h_v_inbox', JSON.stringify(this.inbox));
+                alert('Barcha ma\'lumotlar muvaffaqiyatli saqlandi!');
+            }
         }
-        opts.sort(() => 0.5 - Math.random());
-        disp.innerHTML = `
-            ${badge}
-            <span class="info">[ ${item.pr} ]</span>
-            <div class="word-display">${item.de}</div>
-            <button class="btn btn-opt" style="margin-bottom: 15px;" onclick="speak('${item.de}')">🔊 Eshitish</button>
-            ${opts.map(o => `<button class="btn btn-opt quiz-btn" onclick="checkQ(this, '${o}', '${item.uz}')">${o}</button>`).join('')}
-        `;
-    } else if(mode === 'flash') {
-        disp.innerHTML = `
-            ${badge}
-            <div class="word-display" id="w" style="margin-top:40px;">${item.de}</div>
-            <span class="info">[ ${item.pr} ]</span>
-            <button class="btn btn-main" onclick="document.getElementById('w').innerText='${item.uz}'">👁 TARJIMANI KO'RISH</button>
-            <button class="btn btn-opt" onclick="speak('${item.de}')">🔊 Talaffuz</button>
-            <button class="btn btn-correct" style="margin-top: 15px;" onclick="currentIdx++; render()">KEYINGISI ➔</button>
-        `;
-    } else if(mode === 'write') {
-        disp.innerHTML = `
-            ${badge}
-            <div class="word-display" style="font-size:1.8rem; margin-top:30px;">${item.uz}</div>
-            <input type="text" id="inp" placeholder="Nemischa yozing..." autocomplete="off" onkeypress="if(event.key==='Enter') checkW('${item.de}')">
-            <button class="btn btn-main" onclick="checkW('${item.de}')">TEKSHIRISH</button>
-            <button class="btn btn-opt" onclick="speak('${item.de}')">🔊 Eshitish</button>
-        `;
-        setTimeout(() => document.getElementById('inp').focus(), 100);
-    }
-}
-
-function checkQ(btn, selected, correct) {
-    if(isAnswering) return;
-    isAnswering = true;
-    
-    const allBtns = document.querySelectorAll('.quiz-btn');
-    
-    if(selected === correct) {
-        btn.classList.add('btn-correct');
-        speak("Richtig"); // To'g'ri degan ma'noda (ixtiyoriy)
-        setTimeout(() => { currentIdx++; render(); }, 800);
-    } else {
-        btn.classList.add('btn-wrong');
-        // To'g'ri javobni ham yashil qilib ko'rsatamiz
-        allBtns.forEach(b => {
-            if(b.innerText === correct) b.classList.add('btn-correct');
-        });
-        setTimeout(() => { 
-            btn.classList.remove('btn-wrong');
-            isAnswering = false;
-        }, 1200);
-    }
-}
-
-function checkW(correct) {
-    if(isAnswering) return;
-    const inp = document.getElementById('inp');
-    const v = inp.value.trim().toLowerCase();
-    
-    // Artiklni yozmasa ham yoki artikl bilan yozsa ham to'g'ri deb qabul qilish
-    const coreDe = correct.toLowerCase().replace(/^(der|die|das)\s/, '');
-    
-    if(v === correct.toLowerCase() || v === coreDe) {
-        isAnswering = true;
-        inp.classList.remove('input-wrong');
-        inp.classList.add('input-correct');
-        setTimeout(() => { currentIdx++; render(); }, 800);
-    } else {
-        inp.classList.remove('input-correct');
-        inp.classList.add('input-wrong');
-        setTimeout(() => { inp.classList.remove('input-wrong'); }, 800);
-    }
-}
+    }).mount('#app');
 </script>
+
 </body>
 </html>
